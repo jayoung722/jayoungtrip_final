@@ -53,9 +53,22 @@
         <br>
         <div class="bs-example bs-example-tabs">
             <ul id="myTab" class="nav nav-tabs">
-              <li class="active"><a href="#signin" data-toggle="tab">Sign In</a></li>
-              <li class=""><a href="#signup" data-toggle="tab">Register</a></li>
-              <li class=""><a href="#pwd" data-toggle="tab">Forgot Pwd</a></li>
+          
+          <!-- 추가 -->
+              <% if user_signed_in? %>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= current_user.name %> <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                      <li><%= link_to "My Profile", edit_user_registration_path %></li>
+                      <li><%= link_to "Sign out", destroy_user_session_path, method: :delete, data: { confirm: "Are you sure?" } %></li>
+                    </ul>
+                </li>
+             <% else %>
+                      <li><%= link_to "Sign in", new_user_session_path %></li>
+                      <li><%= link_to "Sign up", new_user_registration_path %></li>
+             <% end %>
+             
+          <!-- 추가 끝 -->     
             </ul>
         </div>
       <div class="modal-body">
@@ -64,6 +77,9 @@
         <p>We need this information so that you can receive access to the site and its content. Rest assured your information will not be sold, traded, or given to anyone.</p>
         <p></p><br> Please contact <a mailto:href="JoeSixPack@Sixpacksrus.com"></a>JoeSixPack@Sixpacksrus.com</a> for any other inquiries.</p>
         </div>
+       
+       <!-- sign in 부분 --
+       
         <div class="tab-pane fade active in" id="signin">
             <form class="form-horizontal">
             <fieldset>
@@ -105,6 +121,10 @@
             </fieldset>
             </form>
         </div>
+        
+        
+      
+        <!-- 레지스터 부분 -->
         <div class="tab-pane fade" id="signup">
             <form class="form-horizontal">
             <fieldset>
